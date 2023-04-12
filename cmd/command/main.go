@@ -2,6 +2,7 @@ package main
 
 import (
 	"game-inventory-management/internal/adapters/database/connection"
+	"game-inventory-management/internal/adapters/http/commandEndpoints"
 	logger "game-inventory-management/internal/adapters/log"
 	"game-inventory-management/internal/adapters/properties"
 	"net/http"
@@ -32,6 +33,7 @@ func main() {
 	e.Use(middleware.Recover())
 
 	startAliveEndpoint(e)
+	commandEndpoints.StartCommandRouter(e, db, log)
 
 	e.Logger.Fatal(e.Start(":1323"))
 }
