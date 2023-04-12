@@ -1,6 +1,7 @@
 package main
 
 import (
+	"game-inventory-management/internal/adapters/database/connection"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
@@ -12,6 +13,16 @@ func main() {
 	logger := getLog()
 	defer getLog()
 	logger.Info("Game Inventory Management - Commands")
+
+	dbConnection := connection.Connection{
+		Host:     "localhost",
+		Port:     "5433",
+		DbName:   "game_inventory_management",
+		DbUser:   "postgres",
+		Password: "123456",
+	}
+
+	connection.DatabaseConnection(dbConnection)
 
 	e := echo.New()
 
