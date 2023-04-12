@@ -5,7 +5,6 @@ import (
 )
 
 type Wallet struct {
-	Id                uuid.UUID
-	LastWalletEventId uuid.UUID
-	Value             int64
+	Id    uuid.UUID
+	Value int64
 }
