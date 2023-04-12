@@ -1,26 +1,22 @@
 package wallet
 
-import "github.com/google/uuid"
-
-type WalletEvent struct {
-	Id       uuid.UUID
-	WalletId uuid.UUID
-	Type     WalletEventType
-	Trade    *TradeWalletEvent
-	Value    int64
-	Test     bool
-}
-
-type WalletEventType string
-
-const (
-	Credit WalletEventType = "credit"
-	Debit  WalletEventType = "debit"
-	Trade  WalletEventType = "trade"
+import (
+	"github.com/google/uuid"
 )
 
-type TradeWalletEvent struct {
-	FromWalletId uuid.UUID
-	ToWalletId   uuid.UUID
-	Value        int64
+type WalletEvent struct {
+	Id                 uuid.UUID
+	WalletId           uuid.UUID
+	Type               string
+	ThirdPartyWalletId *uuid.UUID
+	TradeReference     *uuid.UUID
+	Value              int64
+	Test               bool
 }
+
+const (
+	Credit   string = "credit"
+	Debit    string = "debit"
+	TradeIn  string = "trade_in"
+	TradeOut string = "trade_out"
+)

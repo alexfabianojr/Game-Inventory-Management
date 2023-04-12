@@ -2,17 +2,17 @@ package main
 
 import (
 	"game-inventory-management/internal/adapters/database/connection"
+	logger "game-inventory-management/internal/adapters/log"
 	"game-inventory-management/internal/adapters/properties"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"go.uber.org/zap"
 )
 
 func main() {
-	log := getLog()
-	defer getLog()
+	log := logger.Get()
+	defer logger.Get()
 	log.Info("Game Inventory Management - Commands")
 
 	props, err := properties.Get(log)
@@ -21,7 +21,10 @@ func main() {
 		panic("Cannot load system properties")
 	}
 
-	connection.DatabaseConnection(props.Database, log)
+	db, err := connection.DatabaseConnection(props.Database, log)
+	if err != nil {
+		log.Fatal("Database error", err)
+	}
 
 	e := echo.New()
 
@@ -31,11 +34,6 @@ func main() {
 	startAliveEndpoint(e)
 
 	e.Logger.Fatal(e.Start(":1323"))
-}
-
-func getLog() *zap.SugaredLogger {
-	log, _ := zap.NewProduction()
-	return log.Sugar()
 }
 
 func startAliveEndpoint(e *echo.Echo) {
