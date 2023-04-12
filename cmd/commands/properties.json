@@ -1,0 +1,12 @@
+{
+    "database": {
+		"host":     "localhost",
+		"port":     "5433",
+		"dbName":   "game_inventory_management",
+		"dbUser":   "postgres",
+		"password": "123456"
+    },
+    "web": {
+        "port": ":1323"
+    }
+}

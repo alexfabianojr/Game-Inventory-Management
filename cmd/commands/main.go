@@ -2,6 +2,7 @@ package main
 
 import (
 	"game-inventory-management/internal/adapters/database/connection"
+	"game-inventory-management/internal/adapters/properties"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
@@ -10,26 +11,25 @@ import (
 )
 
 func main() {
-	logger := getLog()
+	log := getLog()
 	defer getLog()
-	logger.Info("Game Inventory Management - Commands")
+	log.Info("Game Inventory Management - Commands")
 
-	dbConnection := connection.Connection{
-		Host:     "localhost",
-		Port:     "5433",
-		DbName:   "game_inventory_management",
-		DbUser:   "postgres",
-		Password: "123456",
+	props, err := properties.Get(log)
+
+	if err != nil {
+		panic("Cannot load system properties")
 	}
 
-	connection.DatabaseConnection(dbConnection)
+	connection.DatabaseConnection(props.Database, log)
 
 	e := echo.New()
 
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
-	healthEndpoint(e)
+	startAliveEndpoint(e)
+
 	e.Logger.Fatal(e.Start(":1323"))
 }
 
@@ -38,9 +38,9 @@ func getLog() *zap.SugaredLogger {
 	return log.Sugar()
 }
 
-func healthEndpoint(e *echo.Echo) {
+func startAliveEndpoint(e *echo.Echo) {
 	response := func(c echo.Context) error {
-		return c.String(http.StatusOK, "OK")
+		return c.String(http.StatusOK, "Game Inventory Management - Commands: OK")
 	}
 	e.GET("/", response)
 }
