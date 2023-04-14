@@ -13,6 +13,8 @@ import (
 func createItemHandler(db *sql.DB, log *zap.SugaredLogger) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		externalReference := c.Param("externalReference")
+		inventoryId := c.Param("inventoryId")
+		test := c.QueryParam("test")
 
 		if externalReference == "" {
 			message := "External reference not informed"
@@ -20,7 +22,7 @@ func createItemHandler(db *sql.DB, log *zap.SugaredLogger) echo.HandlerFunc {
 			return errors.New(message)
 		}
 
-		_, err := itemBusiness.Create(externalReference, db, log)
+		_, err := itemBusiness.Create(inventoryId, externalReference, test, db, log)
 		if err != nil {
 			log.Error(err)
 			return errors.New(err.Error())
