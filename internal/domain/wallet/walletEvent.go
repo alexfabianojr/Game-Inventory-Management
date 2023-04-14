@@ -4,12 +4,11 @@ import (
 	"github.com/google/uuid"
 )
 
-type WalletEvent struct {
+type WalletEventStore struct {
 	Id                 uuid.UUID
 	WalletId           uuid.UUID
 	Type               string
 	ThirdPartyWalletId *uuid.UUID
-	TradeReference     *uuid.UUID
 	Value              int64
 	Test               bool
 }

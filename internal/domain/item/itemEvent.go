@@ -4,13 +4,13 @@ import (
 	"github.com/google/uuid"
 )
 
-type ItemEvent struct {
+type ItemEventStore struct {
 	Id                    uuid.UUID
 	OccurredOn            int64
 	Type                  string
 	ThirdPartyInventoryId *uuid.UUID
-	TradeReference        *uuid.UUID
-	Value                 *int64
+	WalletEventStoreId    *uuid.UUID
+	ExternalReference     uuid.UUID
 	Test                  bool
 }
 

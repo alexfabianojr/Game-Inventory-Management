@@ -5,7 +5,7 @@ import (
 )
 
 type Item struct {
-	id                uuid.UUID
-	inventoryId       uuid.UUID
-	externalReference uuid.UUID
+	Id                uuid.UUID
+	InventoryId       uuid.UUID
+	ExternalReference uuid.UUID
 }

@@ -9,4 +9,5 @@ import (
 
 func StartCommandRouter(e *echo.Echo, db *sql.DB, log *zap.SugaredLogger) {
 	e.POST("/command/inventory/create/:externalReference", createInventoryHandler(db, log))
+	e.POST("/command/item/create/:externalReference/:inventoryId", createInventoryHandler(db, log))
 }
