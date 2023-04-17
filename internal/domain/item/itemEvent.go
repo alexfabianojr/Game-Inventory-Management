@@ -11,6 +11,7 @@ type ItemEventStore struct {
 	ThirdPartyInventoryId *uuid.UUID
 	WalletEventStoreId    *uuid.UUID
 	ExternalReference     uuid.UUID
+	ItemId                uuid.UUID
 	Test                  bool
 }
 

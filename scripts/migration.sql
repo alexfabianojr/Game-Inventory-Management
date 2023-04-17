@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS wallet_event_store (
     test BOOLEAN NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (wallet_id) REFERENCES wallet(id),
-    FOREIGN KEY (third_party_wallet_id) REFERENCES wallet(id),
+    FOREIGN KEY (third_party_wallet_id) REFERENCES wallet(id)
 );
 
 CREATE TABLE IF NOT EXISTS inventory (
@@ -39,8 +39,10 @@ CREATE TABLE IF NOT EXISTS item_event_store (
     third_party_inventory_id UUID,
     wallet_event_store_id UUID,
     external_reference UUID NOT NULL,
+    item_id UUID NOT NULL,
     test BOOLEAN NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (third_party_inventory_id) REFERENCES inventory(id),
-    FOREIGN KEY (wallet_event_store_id) REFERENCES wallet_event_store(id)
+    FOREIGN KEY (wallet_event_store_id) REFERENCES wallet_event_store(id),
+    FOREIGN KEY (item_id) REFERENCES item(id)
 );

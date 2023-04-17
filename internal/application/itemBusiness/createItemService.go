@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"errors"
 	"game-inventory-management/internal/adapters/database/repositories/itemRepository"
-	"game-inventory-management/internal/domain/item"
+	domain "game-inventory-management/internal/domain/item"
 	"time"
 
 	"github.com/google/uuid"
@@ -20,28 +20,34 @@ func Create(
 ) (*uuid.UUID, error) {
 	id := uuid.New()
 
-	itemEvent := item.ItemEventStore{
+	item := domain.Item{
 		Id:                id,
-		OccurredOn:        time.Now().Unix(),
-		Type:              item.New,
+		InventoryId:       inventoryId,
 		ExternalReference: externalReference,
-		Test:              false,
 	}
 
-	err := itemRepository.CreateEvent(itemEvent, db)
+	err := itemRepository.Create(db, item)
 
 	if err != nil {
 		log.Error(err)
 		return nil, errors.New(err.Error())
 	}
 
-	item := item.Item{
+	itemEvent := domain.ItemEventStore{
 		Id:                id,
-		InventoryId:       inventoryId,
+		OccurredOn:        time.Now().Unix(),
+		Type:              domain.New,
 		ExternalReference: externalReference,
+		ItemId:            item.Id,
+		Test:              test,
 	}
 
-	itemRepository.Create(db, item)
+	err = itemRepository.CreateEvent(itemEvent, db)
+
+	if err != nil {
+		log.Error(err)
+		return nil, errors.New(err.Error())
+	}
 
 	return &id, nil
 }
