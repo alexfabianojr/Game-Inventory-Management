@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"errors"
 	"game-inventory-management/internal/adapters/database/repositories/walletRepository"
+	"game-inventory-management/internal/domain/wallet"
 
 	"github.com/google/uuid"
 	"go.uber.org/zap"
@@ -16,28 +17,47 @@ func BalanceExchangesBetweenWallets(
 	test bool,
 	db *sql.DB,
 	log *zap.SugaredLogger,
-) (*uuid.UUID, error) {
-	id := uuid.New()
-
+) error {
 	walletPayer, err := walletRepository.Get(walletIdPayer, db)
 
 	if err != nil {
 		log.Error(err)
-		return nil, errors.New(err.Error())
+		return errors.New(err.Error())
 	}
 
 	walletPayee, err := walletRepository.Get(walletIdPayee, db)
 
 	if err != nil {
 		log.Error(err)
-		return nil, errors.New(err.Error())
+		return errors.New(err.Error())
 	}
 
 	walletPayer.Value -= value
 
 	if walletPayer.Value < 0 {
-		return nil, errors.New("Payer doesn't have enough balance")
+		return errors.New("Payer doesn't have enough balance")
 	}
+
+	eventPayer := wallet.WalletEventStore{
+		Id:                 uuid.New(),
+		WalletId:           walletIdPayer,
+		Type:               wallet.TradeOut,
+		ThirdPartyWalletId: &walletIdPayee,
+		Value:              value,
+		Test:               test,
+	}
+
+	eventPayee := wallet.WalletEventStore{
+		Id:                 uuid.New(),
+		WalletId:           walletIdPayee,
+		Type:               wallet.TradeIn,
+		ThirdPartyWalletId: &walletIdPayer,
+		Value:              value,
+		Test:               test,
+	}
+
+	walletRepository.CreateEvent(eventPayer, db)
+	walletRepository.CreateEvent(eventPayee, db)
 
 	walletPayee.Value += value
 
@@ -45,15 +65,15 @@ func BalanceExchangesBetweenWallets(
 
 	if err != nil {
 		log.Error(err)
-		return nil, errors.New(err.Error())
+		return errors.New(err.Error())
 	}
 
 	err = walletRepository.Update(walletPayee, db)
 
 	if err != nil {
 		log.Error(err)
-		return nil, errors.New(err.Error())
+		return errors.New(err.Error())
 	}
 
-	return &id, nil
+	return nil
 }
