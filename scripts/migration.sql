@@ -36,13 +36,12 @@ CREATE TABLE IF NOT EXISTS item_event_store (
     id UUID NOT NULL,
     occurred_on BIGINT NOT NULL,
     type TEXT NOT NULL,
-    third_party_inventory_id UUID,
-    wallet_event_store_id UUID,
-    external_reference UUID NOT NULL,
+    sender_inventory_id UUID,
+    receiver_inventory_id UUID,
     item_id UUID NOT NULL,
     test BOOLEAN NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (third_party_inventory_id) REFERENCES inventory(id),
-    FOREIGN KEY (wallet_event_store_id) REFERENCES wallet_event_store(id),
+    FOREIGN KEY (sender_inventory_id) REFERENCES inventory(id),
+    FOREIGN KEY (receiver_inventory_id) REFERENCES wallet_event_store(id),
     FOREIGN KEY (item_id) REFERENCES item(id)
 );

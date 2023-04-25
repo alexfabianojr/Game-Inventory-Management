@@ -5,18 +5,18 @@ import (
 )
 
 type ItemEventStore struct {
-	Id                    uuid.UUID
-	OccurredOn            int64
-	Type                  string
-	ThirdPartyInventoryId *uuid.UUID
-	WalletEventStoreId    *uuid.UUID
-	ExternalReference     uuid.UUID
-	ItemId                uuid.UUID
-	Test                  bool
+	Id                  uuid.UUID
+	OccurredOn          int64
+	Type                string
+	SenderInventoryId   *uuid.UUID
+	ReceiverInventoryId *uuid.UUID
+	ItemId              uuid.UUID
+	Test                bool
 }
 
 const (
-	New    string = "create"
-	Delete string = "delete"
-	Trade  string = "trade"
+	New      string = "create"
+	Delete   string = "delete"
+	TradeIn  string = "trade_in"
+	TradeOut string = "trade_out"
 )
