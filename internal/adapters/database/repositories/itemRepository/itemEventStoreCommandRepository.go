@@ -10,7 +10,7 @@ func CreateEvent(itemEvent item.ItemEventStore, db *sql.DB) error {
 		"INSERT INTO item_event_store "+
 			"(id, occurred_on, type, sender_inventory_id, "+
 			"receiver_inventory_id, item_id, test) "+
-			"VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
+			"VALUES ($1, $2, $3, $4, $5, $6, $7)",
 		itemEvent.Id,
 		itemEvent.OccurredOn,
 		itemEvent.Type,

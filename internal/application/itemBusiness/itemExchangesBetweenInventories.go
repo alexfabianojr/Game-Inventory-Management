@@ -12,16 +12,23 @@ import (
 	"go.uber.org/zap"
 )
 
-func itemExchangesBetweenInventories(
-	itemExchanges ItemExchangesBetweenInventories,
+func ItemExchangesBetweenInventories(
+	itemExchanges ItemExchanges,
 	db *sql.DB,
 	log *zap.SugaredLogger,
 ) error {
-	err := validateInventoryExists(itemExchanges, db, log)
+	_, err := inventoryRepository.Get(itemExchanges.ReceiverInventoryId, db)
 
 	if err != nil {
 		log.Error(err)
-		return errors.New(err.Error())
+		return errors.New("Error while trying to find receiver inventory")
+	}
+
+	_, err = inventoryRepository.Get(itemExchanges.SenderInventoryId, db)
+
+	if err != nil {
+		log.Error(err)
+		return errors.New("Error while trying to find sender inventory")
 	}
 
 	item, err := itemRepository.Get(itemExchanges.ItemId, db)
@@ -49,7 +56,12 @@ func itemExchangesBetweenInventories(
 		Test:                itemExchanges.Test,
 	}
 
-	itemRepository.CreateEvent(tradeOutEvent, db)
+	err = itemRepository.CreateEvent(tradeOutEvent, db)
+
+	if err != nil {
+		log.Error(err)
+		return errors.New(err.Error())
+	}
 
 	tradeInEvent := domain.ItemEventStore{
 		Id:                  uuid.New(),
@@ -61,38 +73,26 @@ func itemExchangesBetweenInventories(
 		Test:                itemExchanges.Test,
 	}
 
-	itemRepository.CreateEvent(tradeInEvent, db)
-
-	itemRepository.UpdateItemInventoryId(db, itemExchanges.ItemId, itemExchanges.ReceiverInventoryId)
-
-	return nil
-}
-
-func validateInventoryExists(
-	itemExchanges ItemExchangesBetweenInventories,
-	db *sql.DB,
-	log *zap.SugaredLogger,
-) error {
-	_, err := inventoryRepository.Get(itemExchanges.ReceiverInventoryId, db)
+	err = itemRepository.CreateEvent(tradeInEvent, db)
 
 	if err != nil {
 		log.Error(err)
-		return errors.New("Error while trying to find receiver inventory")
+		return errors.New(err.Error())
 	}
 
-	_, err = inventoryRepository.Get(itemExchanges.SenderInventoryId, db)
+	err = itemRepository.UpdateItemInventoryId(db, itemExchanges.ItemId, itemExchanges.ReceiverInventoryId)
 
 	if err != nil {
 		log.Error(err)
-		return errors.New("Error while trying to find sender inventory")
+		return errors.New(err.Error())
 	}
 
 	return nil
 }
 
-type ItemExchangesBetweenInventories struct {
-	SenderInventoryId   uuid.UUID
-	ReceiverInventoryId uuid.UUID
-	ItemId              uuid.UUID
-	Test                bool
+type ItemExchanges struct {
+	SenderInventoryId   uuid.UUID `json:"sender_inventory_id"`
+	ReceiverInventoryId uuid.UUID `json:"receiver_inventory_id"`
+	ItemId              uuid.UUID `json:"item_id"`
+	Test                bool      `json:"test"`
 }

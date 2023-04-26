@@ -42,6 +42,6 @@ CREATE TABLE IF NOT EXISTS item_event_store (
     test BOOLEAN NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (sender_inventory_id) REFERENCES inventory(id),
-    FOREIGN KEY (receiver_inventory_id) REFERENCES wallet_event_store(id),
+    FOREIGN KEY (receiver_inventory_id) REFERENCES inventory(id),
     FOREIGN KEY (item_id) REFERENCES item(id)
 );
