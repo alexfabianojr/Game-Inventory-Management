@@ -34,12 +34,11 @@ func Create(
 	}
 
 	itemEvent := domain.ItemEventStore{
-		Id:                id,
-		OccurredOn:        time.Now().Unix(),
-		Type:              domain.New,
-		ExternalReference: externalReference,
-		ItemId:            item.Id,
-		Test:              test,
+		Id:         id,
+		OccurredOn: time.Now().Unix(),
+		Type:       domain.New,
+		ItemId:     item.Id,
+		Test:       test,
 	}
 
 	err = itemRepository.CreateEvent(itemEvent, db)

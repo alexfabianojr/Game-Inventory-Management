@@ -3,6 +3,7 @@ package main
 import (
 	"game-inventory-management/internal/adapters/database/connection"
 	"game-inventory-management/internal/adapters/http/commandEndpoints"
+	"game-inventory-management/internal/adapters/http/handlers"
 	logger "game-inventory-management/internal/adapters/log"
 	"game-inventory-management/internal/adapters/properties"
 	"net/http"
@@ -31,6 +32,8 @@ func main() {
 
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
+
+	e.HTTPErrorHandler = handlers.CustomHTTPErrorHandler
 
 	startAliveEndpoint(e)
 	commandEndpoints.StartCommandRouter(e, db, log)

@@ -3,6 +3,8 @@ package itemRepository
 import (
 	"database/sql"
 	"game-inventory-management/internal/domain/item"
+
+	"github.com/google/uuid"
 )
 
 func Create(db *sql.DB, item item.Item) error {
@@ -14,4 +16,10 @@ func Create(db *sql.DB, item item.Item) error {
 		return err
 	}
 	return nil
+}
+
+func UpdateItemInventoryId(db *sql.DB, itemId uuid.UUID, newInventoryId uuid.UUID) error {
+	query := "UPDATE item SET inventory_id = $1 WHERE id = $2"
+	_, err := db.Exec(query, newInventoryId, itemId)
+	return err
 }
