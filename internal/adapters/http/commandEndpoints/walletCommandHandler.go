@@ -91,3 +91,30 @@ type BalanceExchangesBetweenWalletsRequest struct {
 	WalletIdPayee uuid.UUID `json:"wallet_id_payee"`
 	Value         int64     `json:"value"`
 }
+
+func reloadWalletBalance(db *sql.DB, log *zap.SugaredLogger) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		walletId, err := uuid.Parse(c.Param("walletId"))
+
+		if err != nil {
+			log.Error(err)
+			return errors.New(err.Error())
+		}
+
+		test, err := strconv.ParseBool(c.QueryParam("test"))
+
+		if err != nil {
+			log.Error(err)
+			return errors.New(err.Error())
+		}
+
+		err = walletBusiness.ReloadWalletBalance(walletId, test, db, log)
+
+		if err != nil {
+			log.Error(err)
+			return errors.New(err.Error())
+		}
+
+		return c.NoContent(http.StatusCreated)
+	}
+}

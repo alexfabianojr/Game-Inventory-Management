@@ -15,5 +15,5 @@ func StartCommandRouter(e *echo.Echo, db *sql.DB, log *zap.SugaredLogger) {
 
 	e.POST("/command/wallet/add-balance/:walletId", addBalanceToWalletHandler(db, log))
 	e.POST("/command/wallet/balance-exchanges", balanceExchangesBetweenWallets(db, log))
-	// reload wallet balance
+	e.POST("/command/wallet/reload", reloadWalletBalance(db, log))
 }
