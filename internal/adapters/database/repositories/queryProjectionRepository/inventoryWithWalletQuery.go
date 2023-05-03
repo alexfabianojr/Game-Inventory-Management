@@ -14,7 +14,7 @@ const (
 				w.value,
 				i.external_reference
 			FROM inventory i 
-			INNER JOIN wallet w ON w.id = i.wallet_id
+			INNER JOIN wallet w ON w.id = i.wallet_id 
 			WHERE i.external_reference = $1`
 )
 
