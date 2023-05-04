@@ -38,7 +38,7 @@ func main() {
 	startAliveEndpoint(e)
 	queryEndpoint.StartQueryRouter(e, db, log)
 
-	e.Logger.Fatal(e.Start(":1323"))
+	e.Logger.Fatal(e.Start(":1324"))
 }
 
 func startAliveEndpoint(e *echo.Echo) {

@@ -34,14 +34,14 @@ func getInventory(db *sql.DB, log *zap.SugaredLogger) echo.HandlerFunc {
 
 func GetInventoryWithWallet(db *sql.DB, log *zap.SugaredLogger) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		id, err := uuid.Parse(c.Param("id"))
+		inventoryId, err := uuid.Parse(c.Param("inventory_id"))
 
 		if err != nil {
 			log.Error(err)
 			return errors.New(err.Error())
 		}
 
-		inventory, err := projection.GetInventoryWithWalletByInventoryId(id, db, log)
+		inventory, err := projection.GetInventoryWithWalletByInventoryId(inventoryId, db, log)
 
 		if err != nil {
 			log.Error(err)
