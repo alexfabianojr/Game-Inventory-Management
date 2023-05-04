@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"game-inventory-management/internal/adapters/database/repositories/inventoryRepository"
 	"game-inventory-management/internal/adapters/database/repositories/itemRepository"
+	"game-inventory-management/internal/domain/item"
 
 	"github.com/google/uuid"
 	"go.uber.org/zap"
@@ -27,6 +28,17 @@ func GetInventoryWithItems(
 		return InventoryWithItemsProjection{}, err
 	}
 
+	projection := InventoryWithItemsProjection{
+		Id:                         inventory.Id,
+		InventoryWalletId:          inventory.WalletId,
+		InventoryExternalReference: inventory.ExternalReference,
+		Items:                      ParseToItemProjection(items),
+	}
+
+	return projection, nil
+}
+
+func ParseToItemProjection(items []item.Item) []ItemProjection {
 	itemsProjection := []ItemProjection{}
 
 	for _, item := range items {
@@ -38,15 +50,7 @@ func GetInventoryWithItems(
 			},
 		)
 	}
-
-	projection := InventoryWithItemsProjection{
-		Id:                         inventory.Id,
-		InventoryWalletId:          inventory.WalletId,
-		InventoryExternalReference: inventory.ExternalReference,
-		Items:                      itemsProjection,
-	}
-
-	return projection, nil
+	return itemsProjection
 }
 
 type InventoryWithItemsProjection struct {
