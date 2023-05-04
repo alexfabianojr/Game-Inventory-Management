@@ -11,17 +11,17 @@ import (
 )
 
 func GetInventoryWithItems(
-	id uuid.UUID,
+	inventoryId uuid.UUID,
 	db *sql.DB,
 	log *zap.SugaredLogger,
 ) (InventoryWithItemsProjection, error) {
-	inventory, err := inventoryRepository.Get(id, db)
+	inventory, err := inventoryRepository.Get(inventoryId, db)
 	if err != nil {
 		log.Error(err)
 		return InventoryWithItemsProjection{}, err
 	}
 
-	items, err := itemRepository.GetAllItemsByInventoryId(id, db)
+	items, err := itemRepository.GetAllItemsByInventoryId(inventoryId, db)
 
 	if err != nil {
 		log.Error(err)

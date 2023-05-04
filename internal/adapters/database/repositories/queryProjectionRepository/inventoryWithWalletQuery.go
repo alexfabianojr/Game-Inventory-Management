@@ -8,14 +8,14 @@ import (
 )
 
 const (
-	selectByExternalReference = `SELECT 
+	selectByInventoryId = `SELECT 
 				i.id as inventory_id,
 				i.wallet_id,
 				w.value,
 				i.external_reference
 			FROM inventory i 
 			INNER JOIN wallet w ON w.id = i.wallet_id 
-			WHERE i.external_reference = $1`
+			WHERE i.id = $1`
 )
 
 type InventoryWithWalletQueryProjection struct {
@@ -25,12 +25,12 @@ type InventoryWithWalletQueryProjection struct {
 	ExternalReference uuid.UUID
 }
 
-func GetInventoryWithWalletByExternalReference(
-	externalReference uuid.UUID,
+func GetInventoryWithWalletByInventoryId(
+	id uuid.UUID,
 	db *sql.DB,
 ) (InventoryWithWalletQueryProjection, error) {
 	var queryProjection InventoryWithWalletQueryProjection
-	err := db.QueryRow(selectByExternalReference, externalReference).
+	err := db.QueryRow(selectByInventoryId, id).
 		Scan(
 			&queryProjection.InventoryId,
 			&queryProjection.WalletId,
@@ -40,7 +40,7 @@ func GetInventoryWithWalletByExternalReference(
 	if err != nil {
 		if err == sql.ErrNoRows {
 			return InventoryWithWalletQueryProjection{}, fmt.Errorf(
-				"inventory and wallet with external reference %s not found", externalReference.String(),
+				"inventory and wallet with id inventory %s not found", id.String(),
 			)
 		}
 		return InventoryWithWalletQueryProjection{}, err

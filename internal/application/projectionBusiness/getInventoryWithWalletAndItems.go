@@ -10,12 +10,12 @@ import (
 	"go.uber.org/zap"
 )
 
-func getInventoryWithWalletAndItems(
-	externalReference uuid.UUID,
+func GetInventoryWithWalletAndItems(
+	inventoryId uuid.UUID,
 	db *sql.DB,
 	log *zap.SugaredLogger,
 ) (InventoryWithWalletAndItemsProjection, error) {
-	inventoryWithWallet, err := projectionRepository.GetInventoryWithWalletByExternalReference(externalReference, db)
+	inventoryWithWallet, err := projectionRepository.GetInventoryWithWalletByInventoryId(inventoryId, db)
 	if err != nil {
 		log.Error(err)
 		return InventoryWithWalletAndItemsProjection{}, err
