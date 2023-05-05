@@ -3,7 +3,7 @@ package itemBusiness
 import (
 	"database/sql"
 	"errors"
-	"game-inventory-management/internal/adapters/database/repositories/itemRepository"
+	itemRepositoryAdapter "game-inventory-management/internal/adapters/database/repositories/itemRepository"
 	domain "game-inventory-management/internal/domain/item"
 	"time"
 
@@ -26,6 +26,7 @@ func Create(
 		ExternalReference: externalReference,
 	}
 
+	itemRepository := itemRepositoryAdapter.NewItemCommandRepositoryImpl()
 	err := itemRepository.Create(db, item)
 
 	if err != nil {
@@ -41,7 +42,8 @@ func Create(
 		Test:       test,
 	}
 
-	err = itemRepository.CreateEvent(itemEvent, db)
+	itemEventRepository := itemRepositoryAdapter.NewItemEventStoreCommandRepository()
+	err = itemEventRepository.CreateEvent(itemEvent, db)
 
 	if err != nil {
 		log.Error(err)

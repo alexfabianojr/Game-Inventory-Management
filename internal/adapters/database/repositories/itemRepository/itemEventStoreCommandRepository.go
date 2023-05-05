@@ -3,7 +3,14 @@ package itemRepository
 import (
 	"database/sql"
 	"game-inventory-management/internal/domain/item"
+	port "game-inventory-management/internal/ports/database/repositories/itemRepositoryPort"
 )
+
+type ItemEventStoreCommandRepositoryPostgreSQL struct{}
+
+func NewItemEventStoreCommandRepository() port.ItemEventStoreCommandRepository {
+	return ItemEventStoreCommandRepositoryPostgreSQL{}
+}
 
 const (
 	getCreateEventQuery = `INSERT INTO item_event_store 
@@ -11,7 +18,7 @@ const (
 						VALUES ($1, $2, $3, $4, $5, $6, $7)`
 )
 
-func CreateEvent(itemEvent item.ItemEventStore, db *sql.DB) error {
+func (ItemEventStoreCommandRepositoryPostgreSQL) CreateEvent(itemEvent item.ItemEventStore, db *sql.DB) error {
 	_, err := db.Exec(
 		getCreateEventQuery,
 		itemEvent.Id,

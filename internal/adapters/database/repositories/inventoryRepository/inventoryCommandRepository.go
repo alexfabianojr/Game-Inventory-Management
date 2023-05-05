@@ -7,17 +7,17 @@ import (
 	"github.com/google/uuid"
 )
 
-type InventoryCommandRepositoryImpl struct{}
+type InventoryCommandRepositoryPostgreSQL struct{}
 
-func NewInventoryCommandRepositoryImpl() port.InventoryCommandRepository {
-	return InventoryCommandRepositoryImpl{}
+func NewInventoryCommandRepository() port.InventoryCommandRepository {
+	return InventoryCommandRepositoryPostgreSQL{}
 }
 
 const (
 	getCreateQuery = "INSERT INTO inventory(id, wallet_id, external_reference) VALUES($1, $2, $3)"
 )
 
-func (InventoryCommandRepositoryImpl) Create(externalReference string, id uuid.UUID, db *sql.DB) error {
+func (InventoryCommandRepositoryPostgreSQL) Create(externalReference string, id uuid.UUID, db *sql.DB) error {
 	stmt, err := db.Prepare(getCreateQuery)
 	if err != nil {
 		return err

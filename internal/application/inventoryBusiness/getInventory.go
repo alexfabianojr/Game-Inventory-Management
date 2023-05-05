@@ -15,7 +15,7 @@ func GetInventory(
 	db *sql.DB,
 	log *zap.SugaredLogger,
 ) (domain.Inventory, error) {
-	repository := inventoryRepository.NewInventoryQueryRepositoryImpl()
+	repository := inventoryRepository.NewInventoryQueryRepository()
 	inventory, err := repository.GetByExternalReference(externalReference, db)
 	if err != nil {
 		log.Error(err)

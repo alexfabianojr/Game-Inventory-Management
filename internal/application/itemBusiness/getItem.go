@@ -2,7 +2,7 @@ package itemBusiness
 
 import (
 	"database/sql"
-	"game-inventory-management/internal/adapters/database/repositories/itemRepository"
+	itemRepositoryAdapter "game-inventory-management/internal/adapters/database/repositories/itemRepository"
 	domain "game-inventory-management/internal/domain/item"
 
 	"github.com/google/uuid"
@@ -14,6 +14,7 @@ func GetItem(
 	db *sql.DB,
 	log *zap.SugaredLogger,
 ) (domain.Item, error) {
+	itemRepository := itemRepositoryAdapter.NewItemQueryRepository()
 	item, err := itemRepository.Get(id, db)
 	if err != nil {
 		log.Error(err)

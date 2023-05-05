@@ -2,7 +2,7 @@ package itemBusiness
 
 import (
 	"database/sql"
-	"game-inventory-management/internal/adapters/database/repositories/itemRepository"
+	itemRepositoryAdapter "game-inventory-management/internal/adapters/database/repositories/itemRepository"
 	"game-inventory-management/internal/domain/item"
 
 	"github.com/google/uuid"
@@ -14,6 +14,7 @@ func GetItemEvents(
 	db *sql.DB,
 	log *zap.SugaredLogger,
 ) ([]item.ItemEventStore, error) {
+	itemRepository := itemRepositoryAdapter.NewItemEventStoreQueryRepository()
 	events, err := itemRepository.GetAllEventsByItemId(itemId, db)
 	if err != nil {
 		log.Error(err)

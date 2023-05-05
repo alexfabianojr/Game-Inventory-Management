@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"errors"
 	inventoryRepositoryAdapter "game-inventory-management/internal/adapters/database/repositories/inventoryRepository"
-	"game-inventory-management/internal/adapters/database/repositories/itemRepository"
+	itemRepositoryAdapter "game-inventory-management/internal/adapters/database/repositories/itemRepository"
 	domain "game-inventory-management/internal/domain/item"
 	"time"
 
@@ -17,7 +17,7 @@ func ItemExchangesBetweenInventories(
 	db *sql.DB,
 	log *zap.SugaredLogger,
 ) error {
-	inventoryRepository := inventoryRepositoryAdapter.NewInventoryQueryRepositoryImpl()
+	inventoryRepository := inventoryRepositoryAdapter.NewInventoryQueryRepository()
 
 	_, err := inventoryRepository.Get(itemExchanges.ReceiverInventoryId, db)
 
@@ -33,6 +33,7 @@ func ItemExchangesBetweenInventories(
 		return errors.New("Error while trying to find sender inventory")
 	}
 
+	itemRepository := itemRepositoryAdapter.NewItemQueryRepository()
 	item, err := itemRepository.Get(itemExchanges.ItemId, db)
 
 	if err != nil {
@@ -58,7 +59,8 @@ func ItemExchangesBetweenInventories(
 		Test:                itemExchanges.Test,
 	}
 
-	err = itemRepository.CreateEvent(tradeOutEvent, db)
+	itemEventRepository := itemRepositoryAdapter.NewItemEventStoreCommandRepository()
+	err = itemEventRepository.CreateEvent(tradeOutEvent, db)
 
 	if err != nil {
 		log.Error(err)
@@ -75,14 +77,15 @@ func ItemExchangesBetweenInventories(
 		Test:                itemExchanges.Test,
 	}
 
-	err = itemRepository.CreateEvent(tradeInEvent, db)
+	err = itemEventRepository.CreateEvent(tradeInEvent, db)
 
 	if err != nil {
 		log.Error(err)
 		return errors.New(err.Error())
 	}
 
-	err = itemRepository.UpdateItemInventoryId(db, itemExchanges.ItemId, itemExchanges.ReceiverInventoryId)
+	itemCommandRepository := itemRepositoryAdapter.NewItemCommandRepositoryImpl()
+	err = itemCommandRepository.UpdateItemInventoryId(db, itemExchanges.ItemId, itemExchanges.ReceiverInventoryId)
 
 	if err != nil {
 		log.Error(err)

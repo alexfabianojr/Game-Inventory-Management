@@ -3,7 +3,7 @@ package projection
 import (
 	"database/sql"
 	inventoryRepositoryAdapter "game-inventory-management/internal/adapters/database/repositories/inventoryRepository"
-	"game-inventory-management/internal/adapters/database/repositories/itemRepository"
+	itemRepositoryAdapter "game-inventory-management/internal/adapters/database/repositories/itemRepository"
 	"game-inventory-management/internal/domain/item"
 
 	"github.com/google/uuid"
@@ -15,7 +15,7 @@ func GetInventoryWithItems(
 	db *sql.DB,
 	log *zap.SugaredLogger,
 ) (InventoryWithItemsProjection, error) {
-	inventoryRepository := inventoryRepositoryAdapter.NewInventoryQueryRepositoryImpl()
+	inventoryRepository := inventoryRepositoryAdapter.NewInventoryQueryRepository()
 
 	inventory, err := inventoryRepository.Get(inventoryId, db)
 	if err != nil {
@@ -23,6 +23,7 @@ func GetInventoryWithItems(
 		return InventoryWithItemsProjection{}, err
 	}
 
+	itemRepository := itemRepositoryAdapter.NewItemQueryRepository()
 	items, err := itemRepository.GetAllItemsByInventoryId(inventoryId, db)
 
 	if err != nil {

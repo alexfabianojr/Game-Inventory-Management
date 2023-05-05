@@ -3,9 +3,16 @@ package itemRepository
 import (
 	"database/sql"
 	"game-inventory-management/internal/domain/item"
+	"game-inventory-management/internal/ports/database/repositories/itemRepositoryPort"
 
 	"github.com/google/uuid"
 )
+
+type ItemEventStoreQueryRepositoryPostgreSQL struct{}
+
+func NewItemEventStoreQueryRepository() itemRepositoryPort.ItemEventStoreQueryRepository {
+	return ItemEventStoreQueryRepositoryPostgreSQL{}
+}
 
 const (
 	getAllEventsByItemIdQuery = `SELECT 
@@ -20,7 +27,7 @@ const (
 								WHERE item_id = $1`
 )
 
-func GetAllEventsByItemId(itemId uuid.UUID, db *sql.DB) ([]item.ItemEventStore, error) {
+func (ItemEventStoreQueryRepositoryPostgreSQL) GetAllEventsByItemId(itemId uuid.UUID, db *sql.DB) ([]item.ItemEventStore, error) {
 	stmt, err := db.Prepare(getAllEventsByItemIdQuery)
 	if err != nil {
 		return nil, err

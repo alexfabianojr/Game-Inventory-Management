@@ -4,9 +4,16 @@ import (
 	"database/sql"
 	"fmt"
 	domain "game-inventory-management/internal/domain/item"
+	port "game-inventory-management/internal/ports/database/repositories/itemRepositoryPort"
 
 	"github.com/google/uuid"
 )
+
+type ItemQueryRepositoryPostgreSQL struct{}
+
+func NewItemQueryRepository() port.ItemQueryRepository {
+	return ItemQueryRepositoryPostgreSQL{}
+}
 
 const (
 	getAllItemsByInventoryIdQuery = `SELECT 
@@ -17,7 +24,7 @@ const (
 	getQuery = "SELECT id, inventory_id, external_reference FROM item WHERE id = $1"
 )
 
-func Get(id uuid.UUID, db *sql.DB) (domain.Item, error) {
+func (ItemQueryRepositoryPostgreSQL) Get(id uuid.UUID, db *sql.DB) (domain.Item, error) {
 	var item domain.Item
 	err := db.QueryRow(getQuery, id).
 		Scan(&item.Id, &item.InventoryId, &item.ExternalReference)
@@ -31,7 +38,7 @@ func Get(id uuid.UUID, db *sql.DB) (domain.Item, error) {
 	return item, nil
 }
 
-func GetAllItemsByInventoryId(inventoryId uuid.UUID, db *sql.DB) ([]domain.Item, error) {
+func (ItemQueryRepositoryPostgreSQL) GetAllItemsByInventoryId(inventoryId uuid.UUID, db *sql.DB) ([]domain.Item, error) {
 	stmt, err := db.Prepare(getAllItemsByInventoryIdQuery)
 	if err != nil {
 		return nil, err

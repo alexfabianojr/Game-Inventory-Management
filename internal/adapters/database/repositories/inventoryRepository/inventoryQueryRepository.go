@@ -9,10 +9,10 @@ import (
 	"github.com/google/uuid"
 )
 
-type InventoryQueryRepositoryImpl struct{}
+type InventoryQueryRepositoryPostgreSQL struct{}
 
-func NewInventoryQueryRepositoryImpl() port.InventoryQueryRepository {
-	return InventoryQueryRepositoryImpl{}
+func NewInventoryQueryRepository() port.InventoryQueryRepository {
+	return InventoryQueryRepositoryPostgreSQL{}
 }
 
 const (
@@ -20,7 +20,7 @@ const (
 	getByExternalReferenceQuery = "SELECT id, external_reference, wallet_id FROM inventory WHERE external_reference = $1"
 )
 
-func (InventoryQueryRepositoryImpl) Get(id uuid.UUID, db *sql.DB) (domain.Inventory, error) {
+func (InventoryQueryRepositoryPostgreSQL) Get(id uuid.UUID, db *sql.DB) (domain.Inventory, error) {
 	var inventory domain.Inventory
 	err := db.QueryRow(getQuery, id).
 		Scan(&inventory.Id, &inventory.ExternalReference, &inventory.WalletId)
@@ -35,7 +35,7 @@ func (InventoryQueryRepositoryImpl) Get(id uuid.UUID, db *sql.DB) (domain.Invent
 	return inventory, nil
 }
 
-func (InventoryQueryRepositoryImpl) GetByExternalReference(externalReference uuid.UUID, db *sql.DB) (domain.Inventory, error) {
+func (InventoryQueryRepositoryPostgreSQL) GetByExternalReference(externalReference uuid.UUID, db *sql.DB) (domain.Inventory, error) {
 	var inventory domain.Inventory
 	err := db.QueryRow(getByExternalReferenceQuery, externalReference).
 		Scan(&inventory.Id, &inventory.ExternalReference, &inventory.WalletId)

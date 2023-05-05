@@ -2,7 +2,7 @@ package projection
 
 import (
 	"database/sql"
-	"game-inventory-management/internal/adapters/database/repositories/itemRepository"
+	itemRepositoryAdapter "game-inventory-management/internal/adapters/database/repositories/itemRepository"
 	projectionRepository "game-inventory-management/internal/adapters/database/repositories/queryProjectionRepository"
 	"game-inventory-management/internal/domain/item"
 
@@ -21,6 +21,7 @@ func GetInventoryWithWalletAndItems(
 		return InventoryWithWalletAndItemsProjection{}, err
 	}
 
+	itemRepository := itemRepositoryAdapter.NewItemQueryRepository()
 	items, err := itemRepository.GetAllItemsByInventoryId(inventoryWithWallet.InventoryId, db)
 	if err != nil {
 		log.Error(err)

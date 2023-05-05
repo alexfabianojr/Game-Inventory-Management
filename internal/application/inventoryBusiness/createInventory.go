@@ -22,7 +22,7 @@ func Create(externalReference string, db *sql.DB, log *zap.SugaredLogger) (*uuid
 	}
 	log.Info(fmt.Sprintf("Created wallet for id %s", id))
 
-	repository := inventoryRepository.NewInventoryCommandRepositoryImpl()
+	repository := inventoryRepository.NewInventoryCommandRepository()
 	err = repository.Create(externalReference, id, db)
 	if err != nil {
 		log.Error(err)
