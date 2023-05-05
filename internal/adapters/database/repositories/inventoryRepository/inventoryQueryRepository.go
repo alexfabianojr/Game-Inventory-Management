@@ -8,9 +8,14 @@ import (
 	"github.com/google/uuid"
 )
 
+const (
+	getQuery                    = "SELECT id, external_reference, wallet_id FROM inventory WHERE id = $1"
+	getByExternalReferenceQuery = "SELECT id, external_reference, wallet_id FROM inventory WHERE external_reference = $1"
+)
+
 func Get(id uuid.UUID, db *sql.DB) (domain.Inventory, error) {
 	var inventory domain.Inventory
-	err := db.QueryRow("SELECT id, external_reference, wallet_id FROM inventory WHERE id = $1", id).
+	err := db.QueryRow(getQuery, id).
 		Scan(&inventory.Id, &inventory.ExternalReference, &inventory.WalletId)
 
 	if err != nil {
@@ -25,7 +30,7 @@ func Get(id uuid.UUID, db *sql.DB) (domain.Inventory, error) {
 
 func GetByExternalReference(externalReference uuid.UUID, db *sql.DB) (domain.Inventory, error) {
 	var inventory domain.Inventory
-	err := db.QueryRow("SELECT id, external_reference, wallet_id FROM inventory WHERE external_reference = $1", externalReference).
+	err := db.QueryRow(getByExternalReferenceQuery, externalReference).
 		Scan(&inventory.Id, &inventory.ExternalReference, &inventory.WalletId)
 
 	if err != nil {

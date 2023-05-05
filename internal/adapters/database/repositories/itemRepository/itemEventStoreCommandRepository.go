@@ -5,12 +5,15 @@ import (
 	"game-inventory-management/internal/domain/item"
 )
 
+const (
+	getCreateEventQuery = `INSERT INTO item_event_store 
+							(id, occurred_on, type, sender_inventory_id, receiver_inventory_id, item_id, test) 
+						VALUES ($1, $2, $3, $4, $5, $6, $7)`
+)
+
 func CreateEvent(itemEvent item.ItemEventStore, db *sql.DB) error {
 	_, err := db.Exec(
-		"INSERT INTO item_event_store "+
-			"(id, occurred_on, type, sender_inventory_id, "+
-			"receiver_inventory_id, item_id, test) "+
-			"VALUES ($1, $2, $3, $4, $5, $6, $7)",
+		getCreateEventQuery,
 		itemEvent.Id,
 		itemEvent.OccurredOn,
 		itemEvent.Type,

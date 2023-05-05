@@ -9,16 +9,17 @@ import (
 )
 
 const (
-	getAllItemsByInventoryId = `SELECT 
+	getAllItemsByInventoryIdQuery = `SELECT 
 									i.id,
 									i.external_reference 
 								FROM item i 
 								WHERE i.inventory_id = $1`
+	getQuery = "SELECT id, inventory_id, external_reference FROM item WHERE id = $1"
 )
 
 func Get(id uuid.UUID, db *sql.DB) (domain.Item, error) {
 	var item domain.Item
-	err := db.QueryRow("SELECT id, inventory_id, external_reference FROM item WHERE id = $1", id).
+	err := db.QueryRow(getQuery, id).
 		Scan(&item.Id, &item.InventoryId, &item.ExternalReference)
 
 	if err != nil {
@@ -31,7 +32,7 @@ func Get(id uuid.UUID, db *sql.DB) (domain.Item, error) {
 }
 
 func GetAllItemsByInventoryId(inventoryId uuid.UUID, db *sql.DB) ([]domain.Item, error) {
-	stmt, err := db.Prepare(getAllItemsByInventoryId)
+	stmt, err := db.Prepare(getAllItemsByInventoryIdQuery)
 	if err != nil {
 		return nil, err
 	}

@@ -8,9 +8,13 @@ import (
 	"github.com/google/uuid"
 )
 
+const (
+	getQuery = "SELECT id, value FROM wallet WHERE id = $1"
+)
+
 func Get(id uuid.UUID, db *sql.DB) (domain.Wallet, error) {
 	var wallet domain.Wallet
-	err := db.QueryRow("SELECT id, value FROM wallet WHERE id = $1", id).Scan(&wallet.Id, &wallet.Value)
+	err := db.QueryRow(getQuery, id).Scan(&wallet.Id, &wallet.Value)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			return domain.Wallet{}, fmt.Errorf("wallet with ID %s not found", id.String())

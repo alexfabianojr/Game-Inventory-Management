@@ -7,10 +7,12 @@ import (
 	"github.com/google/uuid"
 )
 
+const (
+	getAllEventsByWalletIdQuery = "SELECT id, wallet_id, type, third_party_wallet_id, value, test FROM wallet_event_store WHERE wallet_id = $1"
+)
+
 func GetAllEventsByWalletId(walletId uuid.UUID, db *sql.DB) ([]wallet.WalletEventStore, error) {
-	stmt, err := db.Prepare(
-		"SELECT id, wallet_id, type, third_party_wallet_id, value, test FROM wallet_event_store WHERE wallet_id = $1",
-	)
+	stmt, err := db.Prepare(getAllEventsByWalletIdQuery)
 	if err != nil {
 		return nil, err
 	}

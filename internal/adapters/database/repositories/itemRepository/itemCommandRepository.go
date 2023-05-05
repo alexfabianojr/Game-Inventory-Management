@@ -7,9 +7,14 @@ import (
 	"github.com/google/uuid"
 )
 
+const (
+	getCreateQuery                = "INSERT INTO item (id, inventory_id, external_reference) VALUES ($1, $2, $3)"
+	getUpdateItemInventoryIdQuery = "UPDATE item SET inventory_id = $1 WHERE id = $2"
+)
+
 func Create(db *sql.DB, item item.Item) error {
 	_, err := db.Exec(
-		"INSERT INTO item (id, inventory_id, external_reference) VALUES ($1, $2, $3)",
+		getCreateQuery,
 		item.Id, item.InventoryId, item.ExternalReference,
 	)
 	if err != nil {
@@ -19,7 +24,6 @@ func Create(db *sql.DB, item item.Item) error {
 }
 
 func UpdateItemInventoryId(db *sql.DB, itemId uuid.UUID, newInventoryId uuid.UUID) error {
-	query := "UPDATE item SET inventory_id = $1 WHERE id = $2"
-	_, err := db.Exec(query, newInventoryId, itemId)
+	_, err := db.Exec(getUpdateItemInventoryIdQuery, newInventoryId, itemId)
 	return err
 }

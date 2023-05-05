@@ -7,8 +7,13 @@ import (
 	"github.com/google/uuid"
 )
 
+const (
+	getCreateQuery = "INSERT INTO wallet(id, value) VALUES($1, $2)"
+	getUpdateQuery = "UPDATE wallet SET value = $1 WHERE id = $2"
+)
+
 func Create(id uuid.UUID, db *sql.DB) error {
-	stmt, err := db.Prepare("INSERT INTO wallet(id, value) VALUES($1, $2)")
+	stmt, err := db.Prepare(getCreateQuery)
 	if err != nil {
 		return err
 	}
@@ -22,7 +27,7 @@ func Create(id uuid.UUID, db *sql.DB) error {
 }
 
 func Update(wallet domain.Wallet, db *sql.DB) error {
-	_, err := db.Exec("UPDATE wallet SET value = $1 WHERE id = $2", wallet.Value, wallet.Id)
+	_, err := db.Exec(getUpdateQuery, wallet.Value, wallet.Id)
 	if err != nil {
 		return err
 	}
