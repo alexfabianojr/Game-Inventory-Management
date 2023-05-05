@@ -1,0 +1,626 @@
+{
+	"info": {
+		"_postman_id": "74be5fd7-c81c-4b03-bf0b-eff06c207b7a",
+		"name": "game-inventory-management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "query",
+			"item": [
+				{
+					"name": "get inventory by external reference",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1324/query/inventory/2a5b2140-4e42-48cc-b38b-fdff3789e9fe",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1324",
+							"path": [
+								"query",
+								"inventory",
+								"2a5b2140-4e42-48cc-b38b-fdff3789e9fe"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get inventory by external reference",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:1324/query/inventory/2a5b2140-4e42-48cc-b38b-fdff3789e9fe",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1324",
+									"path": [
+										"query",
+										"inventory",
+										"2a5b2140-4e42-48cc-b38b-fdff3789e9fe"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 04 May 2023 23:16:23 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "155"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Id\": \"247916be-486d-4c99-877e-ecad8e201c4c\",\n    \"WalletId\": \"247916be-486d-4c99-877e-ecad8e201c4c\",\n    \"ExternalReference\": \"2a5b2140-4e42-48cc-b38b-fdff3789e9fe\"\n}"
+						}
+					]
+				},
+				{
+					"name": "get Inventory with items",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1324/query/inventory/summary/items/247916be-486d-4c99-877e-ecad8e201c4c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1324",
+							"path": [
+								"query",
+								"inventory",
+								"summary",
+								"items",
+								"247916be-486d-4c99-877e-ecad8e201c4c"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get wallet with item",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:1324/query/inventory/summary/items/247916be-486d-4c99-877e-ecad8e201c4c",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1324",
+									"path": [
+										"query",
+										"inventory",
+										"summary",
+										"items",
+										"247916be-486d-4c99-877e-ecad8e201c4c"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 04 May 2023 23:25:46 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "399"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"247916be-486d-4c99-877e-ecad8e201c4c\",\n    \"inventory_wallet_id\": \"247916be-486d-4c99-877e-ecad8e201c4c\",\n    \"inventory_external_reference\": \"2a5b2140-4e42-48cc-b38b-fdff3789e9fe\",\n    \"items\": [\n        {\n            \"id\": \"087a62d5-f3cd-4eba-922d-570a70cc0c8d\",\n            \"external_reference\": \"a6ed464f-003f-4d71-8880-297828d92e6e\"\n        },\n        {\n            \"id\": \"cfaa16bf-9e88-4349-b4d6-bd0fda98d2ad\",\n            \"external_reference\": \"a6ed464f-003f-4d71-8880-297828d92e6e\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "get Inventory with items and wallet",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1324/query/inventory/summary/wallet/items/247916be-486d-4c99-877e-ecad8e201c4c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1324",
+							"path": [
+								"query",
+								"inventory",
+								"summary",
+								"wallet",
+								"items",
+								"247916be-486d-4c99-877e-ecad8e201c4c"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get Inventory with items and wallet",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:1324/query/inventory/summary/wallet/items/247916be-486d-4c99-877e-ecad8e201c4c",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1324",
+									"path": [
+										"query",
+										"inventory",
+										"summary",
+										"wallet",
+										"items",
+										"247916be-486d-4c99-877e-ecad8e201c4c"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 04 May 2023 23:33:23 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "401"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"inventory_id\": \"247916be-486d-4c99-877e-ecad8e201c4c\",\n    \"wallet_id\": \"247916be-486d-4c99-877e-ecad8e201c4c\",\n    \"value\": 499,\n    \"external_reference\": \"2a5b2140-4e42-48cc-b38b-fdff3789e9fe\",\n    \"items\": [\n        {\n            \"id\": \"087a62d5-f3cd-4eba-922d-570a70cc0c8d\",\n            \"external_reference\": \"a6ed464f-003f-4d71-8880-297828d92e6e\"\n        },\n        {\n            \"id\": \"cfaa16bf-9e88-4349-b4d6-bd0fda98d2ad\",\n            \"external_reference\": \"a6ed464f-003f-4d71-8880-297828d92e6e\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "get wallet",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1324/query/wallet/247916be-486d-4c99-877e-ecad8e201c4c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1324",
+							"path": [
+								"query",
+								"wallet",
+								"247916be-486d-4c99-877e-ecad8e201c4c"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get wallet",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:1324/query/wallet/247916be-486d-4c99-877e-ecad8e201c4c",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1324",
+									"path": [
+										"query",
+										"wallet",
+										"247916be-486d-4c99-877e-ecad8e201c4c"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 04 May 2023 23:26:31 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "58"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Id\": \"247916be-486d-4c99-877e-ecad8e201c4c\",\n    \"Value\": 499\n}"
+						}
+					]
+				},
+				{
+					"name": "get wallet events",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1324/query/wallet/events/247916be-486d-4c99-877e-ecad8e201c4c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1324",
+							"path": [
+								"query",
+								"wallet",
+								"events",
+								"247916be-486d-4c99-877e-ecad8e201c4c"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get wallet events",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:1324/query/wallet/events/247916be-486d-4c99-877e-ecad8e201c4c",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1324",
+									"path": [
+										"query",
+										"wallet",
+										"events",
+										"247916be-486d-4c99-877e-ecad8e201c4c"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 04 May 2023 23:27:46 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "811"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"Id\": \"91fdcfe8-d023-4d4b-8562-a7c31ec9d77a\",\n        \"WalletId\": \"247916be-486d-4c99-877e-ecad8e201c4c\",\n        \"Type\": \"credit\",\n        \"ThirdPartyWalletId\": null,\n        \"Value\": 100,\n        \"Test\": true\n    },\n    {\n        \"Id\": \"f3950c77-9e05-4d17-95ea-22a48e193d63\",\n        \"WalletId\": \"247916be-486d-4c99-877e-ecad8e201c4c\",\n        \"Type\": \"credit\",\n        \"ThirdPartyWalletId\": null,\n        \"Value\": 100,\n        \"Test\": true\n    },\n    {\n        \"Id\": \"4f0a1047-da1a-4fa3-9703-a843d316b3dd\",\n        \"WalletId\": \"247916be-486d-4c99-877e-ecad8e201c4c\",\n        \"Type\": \"credit\",\n        \"ThirdPartyWalletId\": null,\n        \"Value\": 100,\n        \"Test\": true\n    },\n    {\n        \"Id\": \"30d860d3-1b67-4b2e-8300-fd8203c94e51\",\n        \"WalletId\": \"247916be-486d-4c99-877e-ecad8e201c4c\",\n        \"Type\": \"credit\",\n        \"ThirdPartyWalletId\": null,\n        \"Value\": 100,\n        \"Test\": true\n    },\n    {\n        \"Id\": \"feac271f-44f1-4d7e-881c-1e754e181fed\",\n        \"WalletId\": \"247916be-486d-4c99-877e-ecad8e201c4c\",\n        \"Type\": \"credit\",\n        \"ThirdPartyWalletId\": null,\n        \"Value\": 99,\n        \"Test\": true\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "get item",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1324/query/item/087a62d5-f3cd-4eba-922d-570a70cc0c8d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1324",
+							"path": [
+								"query",
+								"item",
+								"087a62d5-f3cd-4eba-922d-570a70cc0c8d"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get item",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:1324/query/item/087a62d5-f3cd-4eba-922d-570a70cc0c8d",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1324",
+									"path": [
+										"query",
+										"item",
+										"087a62d5-f3cd-4eba-922d-570a70cc0c8d"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 04 May 2023 23:27:01 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "158"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Id\": \"087a62d5-f3cd-4eba-922d-570a70cc0c8d\",\n    \"InventoryId\": \"247916be-486d-4c99-877e-ecad8e201c4c\",\n    \"ExternalReference\": \"a6ed464f-003f-4d71-8880-297828d92e6e\"\n}"
+						}
+					]
+				},
+				{
+					"name": "get item events",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1324/query/item/events/54e59b65-2b81-4df5-8033-1cf98c4ddf14",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1324",
+							"path": [
+								"query",
+								"item",
+								"events",
+								"54e59b65-2b81-4df5-8033-1cf98c4ddf14"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get item events",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:1324/query/item/events/54e59b65-2b81-4df5-8033-1cf98c4ddf14",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "1324",
+									"path": [
+										"query",
+										"item",
+										"events",
+										"54e59b65-2b81-4df5-8033-1cf98c4ddf14"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 04 May 2023 23:50:45 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "739"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"Id\": \"54e59b65-2b81-4df5-8033-1cf98c4ddf14\",\n        \"OccurredOn\": 1683243972,\n        \"Type\": \"create\",\n        \"SenderInventoryId\": null,\n        \"ReceiverInventoryId\": null,\n        \"ItemId\": \"54e59b65-2b81-4df5-8033-1cf98c4ddf14\",\n        \"Test\": true\n    },\n    {\n        \"Id\": \"22bc4b80-eb0a-4634-a909-8dee10c62034\",\n        \"OccurredOn\": 1683244147,\n        \"Type\": \"trade_out\",\n        \"SenderInventoryId\": \"34f47274-fbad-4b50-bca8-b3ec857b0240\",\n        \"ReceiverInventoryId\": \"247916be-486d-4c99-877e-ecad8e201c4c\",\n        \"ItemId\": \"54e59b65-2b81-4df5-8033-1cf98c4ddf14\",\n        \"Test\": false\n    },\n    {\n        \"Id\": \"29bde482-8351-443d-90bd-5529f7ac36fa\",\n        \"OccurredOn\": 1683244147,\n        \"Type\": \"trade_in\",\n        \"SenderInventoryId\": \"34f47274-fbad-4b50-bca8-b3ec857b0240\",\n        \"ReceiverInventoryId\": \"247916be-486d-4c99-877e-ecad8e201c4c\",\n        \"ItemId\": \"54e59b65-2b81-4df5-8033-1cf98c4ddf14\",\n        \"Test\": false\n    }\n]"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "command",
+			"item": [
+				{
+					"name": "exchange item",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"sender_inventory_id\": \"34f47274-fbad-4b50-bca8-b3ec857b0240\",\r\n    \"receiver_inventory_id\": \"247916be-486d-4c99-877e-ecad8e201c4c\",\r\n    \"item_id\": \"54e59b65-2b81-4df5-8033-1cf98c4ddf14\",\r\n    \"test\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1323/command/item/exchanges?test=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1323",
+							"path": [
+								"command",
+								"item",
+								"exchanges"
+							],
+							"query": [
+								{
+									"key": "test",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create inventory",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1323/command/inventory/create/2a5b2140-4e42-48cc-b38b-fdff3789e9fe",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1323",
+							"path": [
+								"command",
+								"inventory",
+								"create",
+								"2a5b2140-4e42-48cc-b38b-fdff3789e9fe"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add balance",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"value\": 99\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1323/command/wallet/add-balance/247916be-486d-4c99-877e-ecad8e201c4c?test=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1323",
+							"path": [
+								"command",
+								"wallet",
+								"add-balance",
+								"247916be-486d-4c99-877e-ecad8e201c4c"
+							],
+							"query": [
+								{
+									"key": "test",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "item create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1323/command/item/create/a6ed464f-003f-4d71-8880-297828d92e6e/247916be-486d-4c99-877e-ecad8e201c4c?test=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1323",
+							"path": [
+								"command",
+								"item",
+								"create",
+								"a6ed464f-003f-4d71-8880-297828d92e6e",
+								"247916be-486d-4c99-877e-ecad8e201c4c"
+							],
+							"query": [
+								{
+									"key": "test",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "exchange balances between wallets",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"wallet_id_payer\": \"7907fb73-2807-4f63-ab88-f327f76a2951\",\r\n    \"wallet_id_payee\": \"62e5091b-beff-4531-bf67-b72648ba705a\",\r\n    \"value\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1323/command/wallet/balance-exchanges?test=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1323",
+							"path": [
+								"command",
+								"wallet",
+								"balance-exchanges"
+							],
+							"query": [
+								{
+									"key": "test",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "inventory_id",
+			"value": "10a5cb8e-1c08-4ddc-9abe-aefeae8cd264"
+		}
+	]
+}
