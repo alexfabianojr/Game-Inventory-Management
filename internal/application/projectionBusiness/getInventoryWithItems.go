@@ -2,7 +2,7 @@ package projection
 
 import (
 	"database/sql"
-	"game-inventory-management/internal/adapters/database/repositories/inventoryRepository"
+	inventoryRepositoryAdapter "game-inventory-management/internal/adapters/database/repositories/inventoryRepository"
 	"game-inventory-management/internal/adapters/database/repositories/itemRepository"
 	"game-inventory-management/internal/domain/item"
 
@@ -15,6 +15,8 @@ func GetInventoryWithItems(
 	db *sql.DB,
 	log *zap.SugaredLogger,
 ) (InventoryWithItemsProjection, error) {
+	inventoryRepository := inventoryRepositoryAdapter.NewInventoryQueryRepositoryImpl()
+
 	inventory, err := inventoryRepository.Get(inventoryId, db)
 	if err != nil {
 		log.Error(err)

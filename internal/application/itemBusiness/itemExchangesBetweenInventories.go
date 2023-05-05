@@ -3,7 +3,7 @@ package itemBusiness
 import (
 	"database/sql"
 	"errors"
-	"game-inventory-management/internal/adapters/database/repositories/inventoryRepository"
+	inventoryRepositoryAdapter "game-inventory-management/internal/adapters/database/repositories/inventoryRepository"
 	"game-inventory-management/internal/adapters/database/repositories/itemRepository"
 	domain "game-inventory-management/internal/domain/item"
 	"time"
@@ -17,6 +17,8 @@ func ItemExchangesBetweenInventories(
 	db *sql.DB,
 	log *zap.SugaredLogger,
 ) error {
+	inventoryRepository := inventoryRepositoryAdapter.NewInventoryQueryRepositoryImpl()
+
 	_, err := inventoryRepository.Get(itemExchanges.ReceiverInventoryId, db)
 
 	if err != nil {
