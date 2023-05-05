@@ -14,7 +14,8 @@ func GetWallet(
 	db *sql.DB,
 	log *zap.SugaredLogger,
 ) (domain.Wallet, error) {
-	wallet, err := walletRepository.Get(id, db)
+	walletQueryRepository := walletRepository.NewWalletQueryRepository()
+	wallet, err := walletQueryRepository.Get(id, db)
 	if err != nil {
 		log.Error(err)
 		return domain.Wallet{}, err

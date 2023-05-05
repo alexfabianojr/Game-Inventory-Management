@@ -36,7 +36,8 @@ func AddBalanceToWallet(
 		return nil, errors.New(err.Error())
 	}
 
-	wallet, err := walletRepository.Get(walletId, db)
+	walletQueryRepository := walletRepository.NewWalletQueryRepository()
+	wallet, err := walletQueryRepository.Get(walletId, db)
 
 	if err != nil {
 		log.Error(err)

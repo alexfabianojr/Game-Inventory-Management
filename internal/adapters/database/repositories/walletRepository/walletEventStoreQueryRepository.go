@@ -3,17 +3,22 @@ package walletRepository
 import (
 	"database/sql"
 	"game-inventory-management/internal/domain/wallet"
+	port "game-inventory-management/internal/ports/outbound/database/repositories/walletRepositoryPort"
 
 	"github.com/google/uuid"
 )
 
 type WalletEventStoreQueryRepositoryPostgreSQL struct{}
 
+func NewWalletEventStoreQueryRepository() port.WalletEventStoreQueryRepository {
+	return WalletEventStoreQueryRepositoryPostgreSQL{}
+}
+
 const (
 	getAllEventsByWalletIdQuery = "SELECT id, wallet_id, type, third_party_wallet_id, value, test FROM wallet_event_store WHERE wallet_id = $1"
 )
 
-func GetAllEventsByWalletId(walletId uuid.UUID, db *sql.DB) ([]wallet.WalletEventStore, error) {
+func (WalletEventStoreQueryRepositoryPostgreSQL) GetAllEventsByWalletId(walletId uuid.UUID, db *sql.DB) ([]wallet.WalletEventStore, error) {
 	stmt, err := db.Prepare(getAllEventsByWalletIdQuery)
 	if err != nil {
 		return nil, err

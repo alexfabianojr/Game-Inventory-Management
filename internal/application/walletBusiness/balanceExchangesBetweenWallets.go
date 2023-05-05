@@ -19,14 +19,15 @@ func BalanceExchangesBetweenWallets(
 	db *sql.DB,
 	log *zap.SugaredLogger,
 ) error {
-	walletPayer, err := walletRepository.Get(walletIdPayer, db)
+	walletQueryRepository := walletRepository.NewWalletQueryRepository()
+	walletPayer, err := walletQueryRepository.Get(walletIdPayer, db)
 
 	if err != nil {
 		log.Error(err)
 		return errors.New(err.Error())
 	}
 
-	walletPayee, err := walletRepository.Get(walletIdPayee, db)
+	walletPayee, err := walletQueryRepository.Get(walletIdPayee, db)
 
 	if err != nil {
 		log.Error(err)

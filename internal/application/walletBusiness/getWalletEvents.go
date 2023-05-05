@@ -14,7 +14,8 @@ func GetWalletEvents(
 	db *sql.DB,
 	log *zap.SugaredLogger,
 ) ([]wallet.WalletEventStore, error) {
-	events, err := walletRepository.GetAllEventsByWalletId(walletId, db)
+	walletEventsRepository := walletRepository.NewWalletEventStoreQueryRepository()
+	events, err := walletEventsRepository.GetAllEventsByWalletId(walletId, db)
 	if err != nil {
 		log.Error(err)
 		return []wallet.WalletEventStore{}, err
