@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"game-inventory-management/internal/adapters/database/repositories/inventoryRepository"
-	"game-inventory-management/internal/adapters/database/repositories/walletRepository"
+	walletRepositoryAdapter "game-inventory-management/internal/adapters/database/repositories/walletRepository"
 
 	"github.com/google/uuid"
 	"go.uber.org/zap"
@@ -15,6 +15,7 @@ func Create(externalReference string, db *sql.DB, log *zap.SugaredLogger) (*uuid
 	id := uuid.New()
 	log.Info(fmt.Sprintf("Creating new inventory and wallet for %s", id))
 
+	walletRepository := walletRepositoryAdapter.NewWalletCommandRepository()
 	err := walletRepository.Create(id, db)
 	if err != nil {
 		log.Error(err)

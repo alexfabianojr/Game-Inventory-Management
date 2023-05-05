@@ -3,7 +3,14 @@ package walletRepository
 import (
 	"database/sql"
 	"game-inventory-management/internal/domain/wallet"
+	port "game-inventory-management/internal/ports/outbound/database/repositories/walletRepositoryPort"
 )
+
+type WalletEventStoreCommandRepositoryPostgreSQL struct{}
+
+func NewWalletEventStoreCommandRepository() port.WalletEventStoreCommandRepository {
+	return WalletEventStoreCommandRepositoryPostgreSQL{}
+}
 
 const (
 	getCreateEventQuery = `INSERT INTO wallet_event_store 
@@ -11,7 +18,7 @@ const (
 							VALUES ($1, $2, $3, $4, $5, $6)`
 )
 
-func CreateEvent(walletEvent wallet.WalletEventStore, db *sql.DB) error {
+func (WalletEventStoreCommandRepositoryPostgreSQL) CreateEvent(walletEvent wallet.WalletEventStore, db *sql.DB) error {
 	_, err := db.Exec(
 		getCreateEventQuery,
 		walletEvent.Id,

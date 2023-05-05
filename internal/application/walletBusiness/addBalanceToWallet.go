@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"errors"
 	"game-inventory-management/internal/adapters/database/repositories/walletRepository"
+	walletRepositoryAdapter "game-inventory-management/internal/adapters/database/repositories/walletRepository"
 	domain "game-inventory-management/internal/domain/wallet"
 
 	"github.com/google/uuid"
@@ -27,7 +28,8 @@ func AddBalanceToWallet(
 		Test:     test,
 	}
 
-	err := walletRepository.CreateEvent(walletEvent, db)
+	walletEventRepository := walletRepositoryAdapter.NewWalletEventStoreCommandRepository()
+	err := walletEventRepository.CreateEvent(walletEvent, db)
 
 	if err != nil {
 		log.Error(err)
@@ -43,6 +45,7 @@ func AddBalanceToWallet(
 
 	wallet.Value += value
 
+	walletRepository := walletRepositoryAdapter.NewWalletCommandRepository()
 	err = walletRepository.Update(wallet, db)
 
 	if err != nil {

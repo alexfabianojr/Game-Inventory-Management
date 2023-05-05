@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"errors"
 	"game-inventory-management/internal/adapters/database/repositories/walletRepository"
+	walletRepositoryAdapter "game-inventory-management/internal/adapters/database/repositories/walletRepository"
 	"game-inventory-management/internal/domain/wallet"
 
 	"github.com/google/uuid"
@@ -56,11 +57,13 @@ func BalanceExchangesBetweenWallets(
 		Test:               test,
 	}
 
-	walletRepository.CreateEvent(eventPayer, db)
-	walletRepository.CreateEvent(eventPayee, db)
+	walletEventRepository := walletRepositoryAdapter.NewWalletEventStoreCommandRepository()
+	walletEventRepository.CreateEvent(eventPayer, db)
+	walletEventRepository.CreateEvent(eventPayee, db)
 
 	walletPayee.Value += value
 
+	walletRepository := walletRepositoryAdapter.NewWalletCommandRepository()
 	err = walletRepository.Update(walletPayer, db)
 
 	if err != nil {

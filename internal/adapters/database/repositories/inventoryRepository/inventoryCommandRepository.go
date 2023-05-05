@@ -2,7 +2,7 @@ package inventoryRepository
 
 import (
 	"database/sql"
-	port "game-inventory-management/internal/ports/database/repositories/inventoryRepositoryPort"
+	port "game-inventory-management/internal/ports/outbound/database/repositories/inventoryRepositoryPort"
 
 	"github.com/google/uuid"
 )

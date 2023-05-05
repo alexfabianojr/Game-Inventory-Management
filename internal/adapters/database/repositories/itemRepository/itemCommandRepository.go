@@ -3,7 +3,7 @@ package itemRepository
 import (
 	"database/sql"
 	"game-inventory-management/internal/domain/item"
-	"game-inventory-management/internal/ports/database/repositories/itemRepositoryPort"
+	"game-inventory-management/internal/ports/outbound/database/repositories/itemRepositoryPort"
 
 	"github.com/google/uuid"
 )

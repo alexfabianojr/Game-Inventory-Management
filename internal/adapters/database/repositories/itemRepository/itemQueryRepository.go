@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	domain "game-inventory-management/internal/domain/item"
-	port "game-inventory-management/internal/ports/database/repositories/itemRepositoryPort"
+	port "game-inventory-management/internal/ports/outbound/database/repositories/itemRepositoryPort"
 
 	"github.com/google/uuid"
 )

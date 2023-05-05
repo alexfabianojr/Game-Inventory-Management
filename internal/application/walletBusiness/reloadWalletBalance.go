@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"errors"
 	"game-inventory-management/internal/adapters/database/repositories/walletRepository"
+	walletRepositoryAdapter "game-inventory-management/internal/adapters/database/repositories/walletRepository"
 	domain "game-inventory-management/internal/domain/wallet"
 
 	"github.com/google/uuid"
@@ -30,6 +31,7 @@ func ReloadWalletBalance(
 		Value: balance,
 	}
 
+	walletRepository := walletRepositoryAdapter.NewWalletCommandRepository()
 	err = walletRepository.Update(wallet, db)
 
 	if err != nil {

@@ -7,6 +7,8 @@ import (
 	"github.com/google/uuid"
 )
 
+type WalletEventStoreQueryRepositoryPostgreSQL struct{}
+
 const (
 	getAllEventsByWalletIdQuery = "SELECT id, wallet_id, type, third_party_wallet_id, value, test FROM wallet_event_store WHERE wallet_id = $1"
 )
